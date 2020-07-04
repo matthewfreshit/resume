@@ -169,9 +169,7 @@ tools.orderByValue().on('value',(data)=>{
 				offset = $('#profile').offset().top;
 			 	applyNavigation();
 			 	checkHash();
-			 	particlesJS('particles-js', particles, function() {
-				 		console.log('callback - particles.js config loaded');
-			 	});
+			 	particlesJS('particles-js', particles, function() {});
  		});
 });
 
@@ -264,7 +262,6 @@ function hex_to_ascii(str)
 		 var col1 = $("#"+type+"col1");
 		 var col2 = $("#"+type+"col2");
 		 var half = parseInt(newArray.length/2);
-     console.log(half);
 		 col1.empty();
 		 col2.empty();
 		 for(var i = 0;i < newArray.length; i++){
