@@ -241,7 +241,7 @@ function checkHash()
 function calculate_age(dob) {
     var diff_ms = Date.now() - dob.getTime();
     var age_dt = new Date(diff_ms);
-		$("#ageField").html("<strong>Age:</strong> <br> "+Math.abs(age_dt.getUTCFullYear() - 1970));
+		$("#ageField").html("<strong>Age: </strong> "+Math.abs(age_dt.getUTCFullYear() - 1970));
 }
 
 function hex_to_ascii(str)
@@ -264,6 +264,7 @@ function hex_to_ascii(str)
 		 var col1 = $("#"+type+"col1");
 		 var col2 = $("#"+type+"col2");
 		 var half = parseInt(newArray.length/2);
+     console.log(half);
 		 col1.empty();
 		 col2.empty();
 		 for(var i = 0;i < newArray.length; i++){
@@ -274,7 +275,7 @@ function hex_to_ascii(str)
 					newHtml+='<span class="glyphicon glyphicon-star '+(j<=value ? "filled":"")+'"></span>';
 				}
 				newHtml += '</span></li>';
-				(i <= half ? col1 : col2).append(newHtml);
+				(i < half ? col1 : ((i === half && i%2 === 1) ? col1 : col2)).append(newHtml);
 		 }
 		 if(typeof callback === "function"){
 			 callback();
