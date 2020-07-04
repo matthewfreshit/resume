@@ -1,114 +1,4 @@
-var offset = $('#profile').offset().top;
-var firebaseConfig = {
-	apiKey: "AIzaSyAH8wfs3sUmgAYF1claBgZLwHzEJHjYtdg",
-	authDomain: "my-resume-8015c.firebaseapp.com",
-	databaseURL: "https://my-resume-8015c.firebaseio.com",
-	projectId: "my-resume-8015c",
-	storageBucket: "my-resume-8015c.appspot.com",
-	messagingSenderId: "631111432434",
-	appId: "1:631111432434:web:91670eff5ea4df986b386b",
-	measurementId: "G-W8QRXRC7B4"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var rootRef = firebase.database().ref();
-var ref = rootRef.child("AboutMe");
-ref.on('value',(snap)=>{
-	var year = snap.val().Year;
-	var day = snap.val().Day;
-	var month = snap.val().Month;
-	$("#ageField").html("<strong>Age:</strong> <br> "+calculate_age(new Date(year,month,day))+" years");
-});
-$(document).ready(function()
-{
-	applyNavigation();
-	applyMailTo();
-	checkHash();
-});
-
-/* NAVIGATION FUNCTIONS */
-
-function applyNavigation()
-{
-	applyClickEvent();
-	applyNavigationFixForPhone();
-	applyScrollSpy();
-	$('body').addClass('fixed');
-  $(window).scroll(function () {
-      if ($(this).scrollTop() > offset-1) {
-          $('.my-navbar').fadeIn();
-      } else {
-          $('.my-navbar').fadeOut();
-      }
-  });
-}
-
-function applyClickEvent()
-{
-	$('a[href*=#]').on('click', function(e)
-	{
-		e.preventDefault();
-
-		if( $( $.attr(this, 'href') ).length > 0 )
-		{
-			$('html, body').animate(
-			{
-				scrollTop: $( $.attr(this, 'href') ).offset().top
-			}, 600);
-		}
-		return false;
-	});
-}
-
-function applyNavigationFixForPhone()
-{
-	$('.navbar li a').click(function(event)
-	{
-		$('.navbar-collapse').removeClass('in').addClass('collapse');
-	});
-}
-
-function applyScrollSpy()
-{
-	$('#navbar-example').on('activate.bs.scrollspy', function()
-	{
-		window.location.hash = $('.nav .active a').attr('href').replace('#', '#/');
-	});
-}
-
-/* MAILTO FUNCTION */
-
-function applyMailTo()
-{
-	$('a[href*=mailto]').on('click', function(e)
-	{
-		var lstrEmail = $(this).attr('href').replace('mailto:', '');
-
-		lstrEmail = lstrEmail.split('').reverse().join('')
-
-		$(this).attr('href', 'mailto:' + lstrEmail);
-	});
-}
-
-/* HASH FUNCTION */
-
-function checkHash()
-{
-	lstrHash = window.location.hash.replace('#/', '#');
-
-	if($('a[href='+ lstrHash +']').length > 0)
-	{
-		$('a[href='+ lstrHash +']').trigger('click');
-	}
-}
-
-function calculate_age(dob) {
-    var diff_ms = Date.now() - dob.getTime();
-    var age_dt = new Date(diff_ms);
-
-    return Math.abs(age_dt.getUTCFullYear() - 1970);
-}
-
+var offset = 250;
 var particles = {
       "particles": {
         "number": {
@@ -220,6 +110,173 @@ var particles = {
       },
       "retina_detect": true
    };
-   particlesJS('particles-js', particles, function() {
-     console.log('callback - particles.js config loaded');
-   });
+
+var firebaseConfig = {
+	apiKey: "AIzaSyAH8wfs3sUmgAYF1claBgZLwHzEJHjYtdg",
+	authDomain: "my-resume-8015c.firebaseapp.com",
+	databaseURL: "https://my-resume-8015c.firebaseio.com",
+	projectId: "my-resume-8015c",
+	storageBucket: "my-resume-8015c.appspot.com",
+	messagingSenderId: "631111432434",
+	appId: "1:631111432434:web:91670eff5ea4df986b386b",
+	measurementId: "G-W8QRXRC7B4"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var rootRef = firebase.database().ref();
+var aboutme = rootRef.child("AboutMe");
+var skills = rootRef.child("Skills");
+var tools = rootRef.child("Tools");
+aboutme.on('value',(snap)=>{
+	var year = snap.val().Year;
+	var day = snap.val().Day;
+	var month = snap.val().Month;
+	calculate_age(new Date(year,month,day));
+});
+skills.orderByValue().on('value',(data)=>{
+			var newArray = [];
+			data.forEach(function(data) {
+	      newArray.push({
+					value: data.val(),
+					title: hex_to_ascii(data.key)
+				});
+	   	});
+		 	newArray.sort(function(val1,val2){
+			 	if (val1.value > val2.value) return -1;
+				if (val1.value < val2.value) return 1;
+				if (val1.title > val2.title) return 1;
+				if (val1.title < val2.title) return -1;
+		 	});
+		 	AddArray("skill",newArray);
+});
+
+tools.orderByValue().on('value',(data)=>{
+		var newArray = [];
+		data.forEach(function(data) {
+	      newArray.push({
+					value: data.val(),
+					title: hex_to_ascii(data.key)
+				});
+	   });
+		 newArray.sort(function(val1,val2){
+			 	if (val1.value > val2.value) return -1;
+				if (val1.value < val2.value) return 1;
+				if (val1.title > val2.title) return 1;
+				if (val1.title < val2.title) return -1;
+		 });
+	 	AddArray("tool",newArray,function(){
+			 	$('body').fadeIn();
+				offset = $('#profile').offset().top;
+			 	applyNavigation();
+			 	checkHash();
+			 	particlesJS('particles-js', particles, function() {
+				 		console.log('callback - particles.js config loaded');
+			 	});
+ 		});
+});
+
+function applyNavigation()
+{
+	applyClickEvent();
+	applyNavigationFixForPhone();
+	applyScrollSpy();
+	history.replaceState(null, null, ' ');
+	$('body').addClass('fixed');
+  $(window).scroll(function () {
+      if ($(this).scrollTop() > offset-1) {
+          $('.my-navbar').fadeIn();
+					window.location.hash = $('.nav .active a').attr('href').replace('#', '#/');
+      } else {
+          $('.my-navbar').fadeOut();
+					history.replaceState(null, null, ' ');
+      }
+  });
+}
+
+function applyClickEvent()
+{
+	$('a[href*=#]').on('click', function(e)
+	{
+		e.preventDefault();
+
+		if( $( $.attr(this, 'href') ).length > 0 )
+		{
+			$('html, body').animate(
+			{
+				scrollTop: $( $.attr(this, 'href') ).offset().top
+			}, 600);
+		}
+		return false;
+	});
+}
+
+function applyNavigationFixForPhone()
+{
+	$('.navbar li a').click(function(event)
+	{
+		$('.navbar-collapse').removeClass('in').addClass('collapse');
+	});
+}
+
+function applyScrollSpy()
+{
+	$('#navbar-example').on('activate.bs.scrollspy', function()
+	{
+		window.location.hash = $('.nav .active a').attr('href').replace('#', '#/');
+	});
+}
+
+/* HASH FUNCTION */
+
+function checkHash()
+{
+	lstrHash = window.location.hash.replace('#/', '#');
+
+	if($('a[href='+ lstrHash +']').length > 0)
+	{
+		$('a[href='+ lstrHash +']').trigger('click');
+	}
+}
+
+function calculate_age(dob) {
+    var diff_ms = Date.now() - dob.getTime();
+    var age_dt = new Date(diff_ms);
+		$("#ageField").html("<strong>Age:</strong> <br> "+Math.abs(age_dt.getUTCFullYear() - 1970));
+}
+
+function hex_to_ascii(str)
+ {
+	  var orginal = str;
+	 	var start = str.indexOf("~");
+		if(start < 0)return str;
+	 	var end = str.lastIndexOf("~")
+		var hex  = str.substr(start+1,end-1);
+		var newstr = '';
+		for (var n = 0; n < hex.length; n += 2) {
+			newstr += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
+		}
+		newstr = orginal.substr(0,start)+newstr.trim()+orginal.substr(end+1);
+		return newstr.trim();
+ }
+
+ function AddArray(type,newArray,callback){
+		 var filled = "";
+		 var col1 = $("#"+type+"col1");
+		 var col2 = $("#"+type+"col2");
+		 var half = parseInt(newArray.length/2);
+		 col1.empty();
+		 col2.empty();
+		 for(var i = 0;i < newArray.length; i++){
+			 	var title = newArray[i].title;
+				var value = newArray[i].value;
+				var newHtml = '<li><span class="ability-title">'+title+'</span><span class="ability-score">';
+				for(var j = 1; j <= 5; j++){
+					newHtml+='<span class="glyphicon glyphicon-star '+(j<=value ? "filled":"")+'"></span>';
+				}
+				newHtml += '</span></li>';
+				(i <= half ? col1 : col2).append(newHtml);
+		 }
+		 if(typeof callback === "function"){
+			 callback();
+		 }
+ }
