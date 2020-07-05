@@ -270,11 +270,9 @@ function hex_to_ascii(str)
 }
 
 function AddArray(type, newArray, callback) {
-    var filled = "";
     var col1 = $("#" + type + "col1");
     var col2 = $("#" + type + "col2");
     var half = parseInt(newArray.length / 2);
-    console.log(half);
     col1.empty();
     col2.empty();
     for (var i = 1; i <= newArray.length; i++) {

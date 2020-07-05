@@ -123,7 +123,8 @@ hr { margin: 40px 0px; border-color: #727878; opacity: 0.2; filter:alpha(opacity
     -moz-transform: rotate(12deg);
     -ms-transform: rotate(12deg);
     -o-transform: rotate(12deg);
-}
+}
+
 #projects .row > div { margin-bottom: 30px; }
 #projects figure { position: relative; overflow: hidden; }
 #projects figure h3 { color: #FFF; font-weight: 600; margin-bottom: 5px; }
@@ -205,7 +206,6 @@ hr { margin: 40px 0px; border-color: #727878; opacity: 0.2; filter:alpha(opacity
     .fixed .navbar { top: 0px; left: 0; margin-left: 0px }
 
     .container { padding: 60px 20px; min-width: 280px; }
-    .hidden-phone { display: none; }
 
     #profile .row * { text-align: center; }
 
