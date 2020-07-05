@@ -251,7 +251,7 @@ function hex_to_ascii(str)
 		var hex  = str.substr(start+1,end-1);
 		var newstr = '';
 		for (var n = 0; n < hex.length; n += 2) {
-			newstr += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
+			newstr += String.fromCharCode(parseInt(hex.substr(n, 2), 16)).trim();
 		}
 		newstr = orginal.substr(0,start)+newstr.trim()+orginal.substr(end+1);
 		return newstr.trim();
