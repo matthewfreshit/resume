@@ -254,19 +254,26 @@ hr { margin: 40px 0px; border-color: #727878; opacity: 0.2; filter:alpha(opacity
 }
 
 figure.effect {
-    background: #3B599A;
+    background: rgba(59,89,154,.2);
     color: #FFF;
+    border-radius: 10px;
+}
+
+figure.effect:hover {
+    background: rgb(59,89,154);
 }
 
 figure.effect img {
     width: -webkit-calc(100% + 20px);
     width: calc(100% + 20px);
+    height: 325px;
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
     -webkit-transform: translate3d(-10px,0,0);
     transform: translate3d(-10px,0,0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+
 }
 
 figure.effect:hover img {
