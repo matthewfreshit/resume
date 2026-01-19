@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.project-card {
+  background: rgba(59, 89, 154, 0.2);
+  transition: background-color 0.3s ease;
+  
+  &:hover {
+    background: rgb(59, 89, 154);
+  }
+}
+

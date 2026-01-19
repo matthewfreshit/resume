@@ -1,0 +1,48 @@
+<section id="projects" class="py-16" style="background: var(--color-bg-light)">
+  <div class="container mx-auto px-4 md:px-24 lg:px-44">
+    <h2 class="text-5xl font-light text-center mb-4" style="color: var(--color-primary)">Projects</h2>
+    <p class="lead mb-8">
+      "Leadership and learning are indispensable to each other."<br>
+      - John F. Kennedy
+    </p>
+    
+    <hr class="border-gray-400 my-10 opacity-20">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      @for (project of projects; track project.title) {
+        <figure class="project-card group relative overflow-hidden rounded-lg cursor-pointer">
+          <img 
+            [src]="project.image" 
+            [alt]="project.title"
+            class="w-full h-80 object-cover transition-all duration-300 group-hover:opacity-20 group-hover:scale-105"
+          >
+          <figcaption class="absolute inset-0 p-6 flex flex-col justify-end text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <h3 class="text-2xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+              {{ project.title }}
+            </h3>
+            <p class="text-white/90 mb-2 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300 delay-100">
+              {{ project.description }}
+            </p>
+            <p class="text-sm text-white/80 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300 delay-150">
+              <strong>Tags:</strong><br>{{ project.tags }}
+            </p>
+            @if (project.link) {
+              <a 
+                [href]="project.link" 
+                target="_blank"
+                class="mt-4 inline-flex items-center text-white hover:text-blue-200 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300 delay-200"
+                (click)="$event.stopPropagation()"
+              >
+                View more
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            }
+          </figcaption>
+        </figure>
+      }
+    </div>
+  </div>
+</section>
+

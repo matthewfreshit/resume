@@ -1,0 +1,17 @@
+<!-- Loading State -->
+@if (isLoading()) {
+  <div class="fixed inset-0 flex items-center justify-center bg-white z-50">
+    <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
+  </div>
+}
+
+<!-- Main Content -->
+<main class="min-h-screen">
+  <app-hero></app-hero>
+  <app-navbar></app-navbar>
+  <app-profile></app-profile>
+  <app-experiences></app-experiences>
+  <app-abilities></app-abilities>
+  <app-projects></app-projects>
+  <app-contact></app-contact>
+</main>

@@ -1,0 +1,69 @@
+@use 'tailwindcss';
+
+/* Custom CSS Variables for theme colors */
+:root {
+  --color-primary: #3b599a;
+  --color-primary-light: #aeb8ca;
+  --color-dark: #434242;
+  --color-gray: #727878;
+  --color-bg-light: #edf0f6;
+  --color-bg-dark: #222222;
+}
+
+/* Global styles */
+html,
+body {
+  @apply h-full text-gray-700;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  @apply text-base leading-relaxed;
+  background: var(--color-bg-light);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+  font-family: 'Open Sans', sans-serif;
+  @apply mb-5;
+}
+
+h1,
+h4 {
+  @apply font-bold mb-2.5;
+}
+
+h2,
+h3 {
+  @apply font-light;
+  color: var(--color-primary);
+}
+
+h2 {
+  @apply text-5xl text-center;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+/* Utility classes */
+.lead {
+  @apply text-center;
+  color: var(--color-gray);
+}
+
+.lead a {
+  @apply text-white underline;
+}
+
+.lead a:hover {
+  @apply no-underline;
+}
