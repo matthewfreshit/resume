@@ -1,0 +1,51 @@
+<nav
+  class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 transition-all duration-300"
+  [class.opacity-0]="!isVisible()"
+  [class.pointer-events-none]="!isVisible()"
+  [class.opacity-100]="isVisible()"
+>
+  <!-- Desktop Navigation -->
+  <div class="hidden md:flex">
+    @for (item of navItems; track item.href) {
+      <button
+        (click)="scrollToSection(item.href)"
+        class="h-20 w-30 px-6 text-white font-semibold text-center transition-colors duration-200"
+        [class.bg-primary]="activeSection() === item.href"
+        [class.bg-gray-900]="activeSection() !== item.href"
+        [class.hover:bg-gray-700]="activeSection() !== item.href"
+      >
+        {{ item.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Mobile Navigation Toggle -->
+  <div class="md:hidden">
+    <button
+      (click)="toggleMobileMenu()"
+      class="bg-gray-900 text-white p-4 rounded-t-lg"
+    >
+      <span class="sr-only">Toggle navigation</span>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+    
+    <!-- Mobile Menu -->
+    @if (isMobileMenuOpen()) {
+      <div class="absolute bottom-full left-0 w-48 bg-gray-900 rounded-t-lg overflow-hidden">
+        @for (item of navItems; track item.href) {
+          <button
+            (click)="scrollToSection(item.href)"
+            class="block w-full py-3 px-4 text-white text-left transition-colors duration-200"
+            [class.bg-primary]="activeSection() === item.href"
+            [class.hover:bg-gray-700]="activeSection() !== item.href"
+          >
+            {{ item.label }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+</nav>
+

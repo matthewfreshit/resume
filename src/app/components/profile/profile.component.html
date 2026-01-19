@@ -1,0 +1,47 @@
+<section id="profile" class="bg-white py-16">
+  <div class="container mx-auto px-4 md:px-24 lg:px-44">
+    <h2 class="text-5xl font-light text-center mb-4" style="color: var(--color-primary)">
+      Profile
+    </h2>
+    <p class="lead mb-8">
+      I'm a motivated and resilient Cloud Engineer looking for opportunities to grow.
+    </p>
+
+    <hr class="border-gray-300 my-10 opacity-20" />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      <!-- About Me -->
+      <div>
+        <h3 class="text-2xl font-light mb-4" style="color: var(--color-primary)">About me</h3>
+        <p class="text-gray-600 leading-relaxed">
+          I am a well rounded developer that welcomes the opportunities to learn every day. I like
+          to consider myself the <em>"Jack of all trades"</em> when it comes to software
+          development. Even though my specialty is full stack web development, I will never turn
+          down the challenge of solving a problem no matter the language. A wise man once told me,
+          <em>"It's just code..."</em>. I work well with a team and love to learn from others.
+        </p>
+      </div>
+
+      <!-- Photo -->
+      <div class="text-center">
+        <img
+          src="Matt-Round.png"
+          alt="Matthew Dorres Leleux"
+          class="w-60 h-60 mx-auto rounded-full shadow-lg"
+        />
+      </div>
+
+      <!-- Details -->
+      <div>
+        <h3 class="text-2xl font-light mb-4" style="color: var(--color-primary)">Details</h3>
+        <div class="space-y-4 text-gray-600">
+          <div><strong class="text-gray-800">Name:</strong> {{ name() }}</div>
+          @if (age() > 0) {
+            <div><strong class="text-gray-800">Age:</strong> {{ age() }}</div>
+          }
+          <div><strong class="text-gray-800">Location:</strong> {{ location() }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

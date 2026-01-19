@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+// Ensure smooth transitions for active state
+button {
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+
+  &.bg-primary {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: white;
+    }
+  }
+}
