@@ -39,6 +39,14 @@ export class NavbarComponent {
 
   private updateActiveSection(): void {
     const scrollPosition = window.scrollY + window.innerHeight / 3;
+    const scrollBottom = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // If user has scrolled to the bottom of the page, highlight the last section
+    if (scrollBottom >= documentHeight - 50) {
+      this.activeSection.set(this.navItems[this.navItems.length - 1].href);
+      return;
+    }
 
     // Check each section from bottom to top to find current active
     for (let i = this.navItems.length - 1; i >= 0; i--) {
